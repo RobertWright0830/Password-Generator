@@ -1,4 +1,3 @@
-// add a function to sort the generated pasword since it currently has the first characters forced
 //note that requirements state to confirm character types.  consider changing from prompt to confirm which uses boolean
 //add check to ensure at least one character type was selected; can't just select N to all.
 //need to reorder this so that prompts occur after selecting the generate password button and displayed after all proompts entered
@@ -27,12 +26,15 @@ var usedCharacters = 0;
 var passwordString = "";
 
 function charaCountFunction() {
+  // charaCount = 0;
+  // console.log(charaCount);
   var charaCount = prompt(
     "How many characters should the password be? (At least 8, and no more than 128) "
   );
 
   if (charaCount >= 8 && charaCount <= 128) {
     console.log("valid number");
+    console.log(charaCount);
     return charaCount;
   } else {
     alert(
@@ -41,8 +43,6 @@ function charaCountFunction() {
     return charaCountFunction();
   }
 }
-
-
 
 function inclUpperCaseFunction() {
   var inclUpperCase = prompt(
@@ -63,16 +63,10 @@ function inclUpperCaseFunction() {
     alert(
       "Invalid Response.  Please answer in the form of uppercase Y or uppercase N."
     );
+    // inclUpperCase = "";
     return inclUpperCaseFunction();
   }
 }
-
-pass1 = inclUpperCaseFunction();
-if (pass1 != pass0) {
-  passwordString = passwordString + tempUCStr;
-}
-console.log(passwordString);
-console.log(pass1);
 
 function inclLowerCaseFunction() {
   var inclLowerCase = prompt(
@@ -93,16 +87,10 @@ function inclLowerCaseFunction() {
     alert(
       "Invalid Response.  Please answer in the form of uppercase Y or uppercase N."
     );
+    // inclLowerCase = "";
     return inclLowerCaseFunction();
   }
 }
-
-pass2 = inclLowerCaseFunction();
-if (pass2 != pass1) {
-  passwordString = passwordString + tempLCStr;
-}
-console.log(passwordString);
-console.log(pass2);
 
 function inclNumberFunction() {
   var inclNumber = prompt(
@@ -123,16 +111,10 @@ function inclNumberFunction() {
     alert(
       "Invalid Response.  Please answer in the form of uppercase Y or uppercase N."
     );
+    // inclNumber = ""
     return inclNumberFunction();
   }
 }
-
-pass3 = inclNumberFunction();
-if (pass3 != pass2) {
-  passwordString = passwordString + tempNumberStr;
-}
-console.log(passwordString);
-console.log(pass3);
 
 function inclSpclCharFunction() {
   var inclSpclChar = prompt(
@@ -157,6 +139,39 @@ function inclSpclCharFunction() {
   }
 }
 
+alert(
+  "To generate a random password for desired conditions, click on the Generate Password button."
+);
+
+function generatePassword() {
+  passwordString = "";
+  console.log("Password String");
+  console.log(passwordString);
+
+  passLength = charaCountFunction();
+  console.log(passLength);
+
+  pass1 = inclUpperCaseFunction();
+  if (pass1 != pass0) {
+    passwordString = passwordString + tempUCStr;
+  }
+  console.log(passwordString);
+  console.log(pass1);
+
+  pass2 = inclLowerCaseFunction();
+if (pass2 != pass1) {
+  passwordString = passwordString + tempLCStr;
+}
+  console.log(passwordString);
+  console.log(pass2);
+
+  pass3 = inclNumberFunction();
+if (pass3 != pass2) {
+  passwordString = passwordString + tempNumberStr;
+}
+console.log(passwordString);
+console.log(pass3);
+
 pass4 = inclSpclCharFunction();
 if (pass4 != pass3) {
   passwordString = passwordString + tempSpclCharStr;
@@ -164,12 +179,7 @@ if (pass4 != pass3) {
 console.log(passwordString);
 console.log(pass4);
 
-alert(
-  "To generate a random password for these conditions, click on the Generate Password button."
-);
-
-function generatePassword() {
-  remainingPassLength = passLength - pass4.length;
+remainingPassLength = passLength - pass4.length;
   for (let i = 1; i <= remainingPassLength; i++) {
     var char = Math.floor(Math.random() * passwordString.length + 1);
 
@@ -179,20 +189,37 @@ function generatePassword() {
   return pass4;
 }
 
-console.log(generatePassword());
+function shuffledPasswordFunction(inputString) {
+  console.log(inputString);
+  // Convert the string into an array of characters
+  var charArray = inputString.split('');
 
-generatePassword();
+  // Use Fisher-Yates shuffle algorithm to shuffle the array
+  for (let i = charArray.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    [charArray[i], charArray[j]] = [charArray[j], charArray[i]]; // Swap elements
+  }
+
+  // Join the shuffled characters back into a string
+  var shuffledString = charArray.join('');
+  
+  return shuffledString;
+}
 
 // // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  
+  var unshuffledPassword = generatePassword();
+  console.log(unshuffledPassword);
+  var shuffledPassword = shuffledPasswordFunction(unshuffledPassword);
+  console.log(shuffledPassword);
   var passwordText = document.querySelector("#password");
+  
 
-  passLength = charaCountFunction();
-  console.log(passLength);
-
-  passwordText.value = password;
+  passwordText.value = shuffledPassword;
 }
+
+
 
 // // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
