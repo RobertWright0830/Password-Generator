@@ -1,5 +1,6 @@
 // add a function to sort the generated pasword since it currently has the first characters forced
-//add check to ensure at least one character type was selected
+//note that requirements state to confirm character types.  consider changing from prompt to confirm which uses boolean
+//add check to ensure at least one character type was selected; can't just select N to all.
 //need to reorder this so that prompts occur after selecting the generate password button and displayed after all proompts entered
 //deploy to live URL
 //polish full experience
@@ -7,6 +8,11 @@
 //continue additional commits
 //update README file
 //submit challenge
+//need to move my code all within the generate password function to prevent prompt from occurring right away to allow the user to select
+//the button to begin
+//link should now be going to the portfolio page and I should be updating the portfolio to link to it
+
+
 
 
 
