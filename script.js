@@ -1,38 +1,29 @@
-// add a function to sort the generated pasword since it currently has the first characters forced
-//note that requirements state to confirm character types.  consider changing from prompt to confirm which uses boolean
-//add check to ensure at least one character type was selected; can't just select N to all.
-//need to reorder this so that prompts occur after selecting the generate password button and displayed after all proompts entered
 //deploy to live URL
 //polish full experience
 //add comments
 //continue additional commits
 //update README file
 //submit challenge
-//need to move my code all within the generate password function to prevent prompt from occurring right away to allow the user to select
-//the button to begin
 //link should now be going to the portfolio page and I should be updating the portfolio to link to it
 
+// Variables Defined
+var generateBtn = document.querySelector("#generate"); //gets handle of generate button
+var pass0 = ""; //starts password as a blank string
+var lettersForRandomSelection = "";//starts letters to be considered for random selection and is added to based on prompts
 
-
-
-
-// // Assignment Code
-var generateBtn = document.querySelector("#generate");
-var pass0 = "";
+//defines the various character types to use if selected during prompt
 var tempUCStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var tempLCStr = "abcdefghijklmnopqrstuvwxyz";
 var tempNumberStr = "0123456789";
 var tempSpclCharStr = " !\"#$%&'()*+,-./:;<=>?@[]^\\_`{|}~";
-var usedCharacters = 0;
-var passwordString = "";
 
+//function to determine the number of characters for password
 function charaCountFunction() {
   var charaCount = prompt(
     "How many characters should the password be? (At least 8, and no more than 128) "
   );
-
+//check for valid response
   if (charaCount >= 8 && charaCount <= 128) {
-    console.log("valid number");
     return charaCount;
   } else {
     alert(
@@ -42,24 +33,22 @@ function charaCountFunction() {
   }
 }
 
-
-
+//function to prompt whether upper case must be included
 function inclUpperCaseFunction() {
   var inclUpperCase = prompt(
     "Do you want to include uppercase letters in the password? (Y or N)"
   );
-
-  if (inclUpperCase === "Y") {
+  var inclUpperCase = inclUpperCase.toUpperCase(); //forces response to uppercase
+ //check for valid response
+  if (inclUpperCase === "Y") { //forces one random upper case if selected
     var randomUCCharacter = Math.floor(Math.random() * tempUCStr.length);
     var reqdUpperCase = tempUCStr.charAt(randomUCCharacter);
-    pass1 = pass0 + reqdUpperCase;
-    console.log(pass1);
-    return pass1;
-  } else if (inclUpperCase === "N") {
+    pass1 = pass0 + reqdUpperCase; //adds to inital password
+    return pass1; //function returns the updated password value to include upper case if required for inclusion
+  } else if (inclUpperCase === "N") {//excludes forced upper case if not selected
     pass1 = pass0;
-    console.log(pass1);
-    return pass1;
-  } else {
+    return pass1;//function returns password value with no uppercase if not selected
+  } else {//if invalid response gives alert and runs through function again until valid response provided
     alert(
       "Invalid Response.  Please answer in the form of uppercase Y or uppercase N."
     );
@@ -67,29 +56,23 @@ function inclUpperCaseFunction() {
   }
 }
 
-pass1 = inclUpperCaseFunction();
-if (pass1 != pass0) {
-  passwordString = passwordString + tempUCStr;
-}
-console.log(passwordString);
-console.log(pass1);
-
+//function to prompt whether lower case must be included
 function inclLowerCaseFunction() {
   var inclLowerCase = prompt(
     "Do you want to include lowercase letters in the password? (Y or N)"
   );
-
-  if (inclLowerCase === "Y") {
+  var inclLowerCase = inclLowerCase.toUpperCase(); //forces response to uppercase
+  //check for valid response
+  if (inclLowerCase === "Y") {//forces one random lower case if selected
     var randomLCCharacter = Math.floor(Math.random() * tempLCStr.length);
     var reqdLowerCase = tempLCStr.charAt(randomLCCharacter);
-    pass2 = pass1 + reqdLowerCase;
-    console.log(pass2);
-    return pass2;
-  } else if (inclLowerCase === "N") {
+    pass2 = pass1 + reqdLowerCase; //adds to building password
+    return pass2;//function returns the updated password value to include lower case if required for inclusion
+
+  } else if (inclLowerCase === "N") {//excludes forced lower case if not selected
     pass2 = pass1;
-    console.log(pass2);
-    return pass2;
-  } else {
+    return pass2;//function returns password value with no lowercase if not selected
+  } else {//if invalid response gives alert and runs through function again until valid response provided
     alert(
       "Invalid Response.  Please answer in the form of uppercase Y or uppercase N."
     );
@@ -97,29 +80,22 @@ function inclLowerCaseFunction() {
   }
 }
 
-pass2 = inclLowerCaseFunction();
-if (pass2 != pass1) {
-  passwordString = passwordString + tempLCStr;
-}
-console.log(passwordString);
-console.log(pass2);
-
+//function to prompt whether number must be included
 function inclNumberFunction() {
   var inclNumber = prompt(
     "Do you want to include numbers in the password? (Y or N)"
   );
-
-  if (inclNumber === "Y") {
+  var inclNumber = inclNumber.toUpperCase();//forces response to uppercase
+  //check for valid response
+  if (inclNumber === "Y") {//forces one random number if selected
     var randomNumber = Math.floor(Math.random() * tempNumberStr.length);
     var reqdNumber = tempNumberStr.charAt(randomNumber);
-    pass3 = pass2 + reqdNumber;
-    console.log(pass3);
-    return pass3;
-  } else if (inclNumber === "N") {
+    pass3 = pass2 + reqdNumber;//adds to building password
+    return pass3;//function returns the updated password value to include number if required for inclusion
+  } else if (inclNumber === "N") { //excludes forced number if not selected
     pass3 = pass2;
-    console.log(pass3);
-    return pass3;
-  } else {
+    return pass3;//function returns password value with no number if not selected
+  } else {//if invalid response gives alert and runs through function again until valid response provided
     alert(
       "Invalid Response.  Please answer in the form of uppercase Y or uppercase N."
     );
@@ -127,29 +103,22 @@ function inclNumberFunction() {
   }
 }
 
-pass3 = inclNumberFunction();
-if (pass3 != pass2) {
-  passwordString = passwordString + tempNumberStr;
-}
-console.log(passwordString);
-console.log(pass3);
-
+//function to prompt whether special characters must be included
 function inclSpclCharFunction() {
   var inclSpclChar = prompt(
     "Do you want to include special characters in the password? (Y or N)"
   );
-
-  if (inclSpclChar === "Y") {
+  var inclSpclChar = inclSpclChar.toUpperCase();//forces response to uppercase
+  //check for valid response
+  if (inclSpclChar === "Y") {//forces one random special character if selected
     var randomSpclChar = Math.floor(Math.random() * tempSpclCharStr.length);
     var reqdSpclChar = tempSpclCharStr.charAt(randomSpclChar);
-    pass4 = pass3 + reqdSpclChar;
-    console.log(pass4);
-    return pass4;
-  } else if (inclSpclChar === "N") {
+    pass4 = pass3 + reqdSpclChar;//adds to building password
+    return pass4;//function returns the updated password value to include special character if required for inclusion
+  } else if (inclSpclChar === "N") {//excludes forced special character if not selected
     pass4 = pass3;
-    console.log(pass4);
-    return pass4;
-  } else {
+    return pass4;//function returns password value with no special character if not selected
+  } else {//if invalid response gives alert and runs through function again until valid response provided
     alert(
       "Invalid Response.  Please answer in the form of uppercase Y or uppercase N."
     );
@@ -157,42 +126,90 @@ function inclSpclCharFunction() {
   }
 }
 
-pass4 = inclSpclCharFunction();
-if (pass4 != pass3) {
-  passwordString = passwordString + tempSpclCharStr;
-}
-console.log(passwordString);
-console.log(pass4);
-
-alert(
-  "To generate a random password for these conditions, click on the Generate Password button."
-);
-
+//function builds string of numbers available for random selection based on prompt responses
+//also determines remaining number of characters needed to complete password count by subtracting 
+//characters already generated and built from the total count needed
 function generatePassword() {
-  remainingPassLength = passLength - pass4.length;
-  for (let i = 1; i <= remainingPassLength; i++) {
-    var char = Math.floor(Math.random() * passwordString.length + 1);
+  lettersForRandomSelection = "";
 
-    pass4 += passwordString.charAt(char);
+  passLength = charaCountFunction(); //assigns character count function to variable
+
+  //identifies whether an UpperCase was added to building password to determine whether they should
+  //be included in random choices 
+  pass1 = inclUpperCaseFunction();
+  if (pass1 != pass0) {
+    lettersForRandomSelection = lettersForRandomSelection + tempUCStr;
+  }
+
+  //identifies whether a Lower Case was added to building password to determine whether they should
+  //be included in random choices 
+  pass2 = inclLowerCaseFunction();
+if (pass2 != pass1) {
+  lettersForRandomSelection = lettersForRandomSelection + tempLCStr;
+}
+
+  //identifies whether a Number was added to building password to determine whether they should
+  //be included in random choices 
+  pass3 = inclNumberFunction();
+if (pass3 != pass2) {
+  lettersForRandomSelection = lettersForRandomSelection + tempNumberStr;
+}
+
+//identifies whether a Special Character was added to building password to determine whether they should
+  //be included in random choices 
+  pass4 = inclSpclCharFunction();
+if (pass4 != pass3) {
+  lettersForRandomSelection = lettersForRandomSelection + tempSpclCharStr;
+}
+
+//determines remaining number of characters needed by looking at full length needed
+//and subtracting those already selected then creates a loop to randomly select from 
+//character types selected from prompts
+remainingPassLength = passLength - pass4.length;
+  for (let i = 1; i <= remainingPassLength; i++) {
+    var char = Math.floor(Math.random() * lettersForRandomSelection.length + 1);
+
+    pass4 += lettersForRandomSelection.charAt(char);
   }
 
   return pass4;
 }
 
-console.log(generatePassword());
+//because the first characters were forced into their selected position in order of prompt
+//they weren't truly random therefore this function is invoked to randomize the order while
+//still ensuring one of each character type requested is included.
+function shuffledPasswordFunction(inputString) {
 
-generatePassword();
+  // Converts the string into an array for shuffling
+  var charArray = inputString.split('');
 
-// // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  // loop created to shuffle
+  for (let i = charArray.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    [charArray[i], charArray[j]] = [charArray[j], charArray[i]]; 
+  }
 
-  passLength = charaCountFunction();
-  console.log(passLength);
-
-  passwordText.value = password;
+  // shuffled characters are joined back together
+  var shuffledString = charArray.join('');
+  
+  return shuffledString;
 }
 
-// // Add event listener to generate button
+// Write password to the #password input
+function writePassword() {
+
+  var unshuffledPassword = generatePassword();
+  var shuffledPassword = shuffledPasswordFunction(unshuffledPassword);
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = shuffledPassword;
+
+}
+
+//initial alert to inform to click on generate password button to get started
+alert(
+  "To generate a random password for desired conditions, click on the Generate Password button."
+);
+
+// Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
