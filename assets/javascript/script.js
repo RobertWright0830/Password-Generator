@@ -1,8 +1,3 @@
-//deploy to live URL
-//update README file
-//submit challenge
-//link should now be going to the portfolio page and I should be updating the portfolio to link to it
-
 // Variables Defined
 var generateBtn = document.querySelector("#generate"); //gets handle of generate button
 var pass0 = ""; //starts password as a blank string
@@ -12,7 +7,7 @@ var lettersForRandomSelection = ""; //starts letters to be considered for random
 var tempUCStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var tempLCStr = "abcdefghijklmnopqrstuvwxyz";
 var tempNumberStr = "0123456789";
-var tempSpclCharStr = " !\"#$%&'()*+,-./:;<=>?@[]^\\_`{|}~";
+var tempSpclCharStr = "!\"#$%&'()*+,-./:;<=>?@[]^\\_`{|}~";
 
 //function to determine the number of characters for password
 function charaCountFunction() {
