@@ -1,7 +1,4 @@
 //deploy to live URL
-//polish full experience
-//add comments
-//continue additional commits
 //update README file
 //submit challenge
 //link should now be going to the portfolio page and I should be updating the portfolio to link to it
